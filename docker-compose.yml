@@ -16,7 +16,7 @@ services:
     image: swaroop158/docker-backend:latest
     container_name: springboot
     ports:
-      - "7778:8887"
+      - "8887:7888"
     depends_on:
       - mysqldb
     restart: on-failure
