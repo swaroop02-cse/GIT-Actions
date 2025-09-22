@@ -13,7 +13,7 @@ services:
       - springboot-mysql-net
 
   backend:
-    image: swaroop158/docker-backend:latest
+    image: swaroop158/sdp35-backend:latest
     container_name: springboot
     ports:
       - "8887:7888"
@@ -24,7 +24,7 @@ services:
       - springboot-mysql-net
 
   frontend:
-    image: swaroop158/docker-frontend:latest
+    image: swaroop158/sdp35-frontend:latest
     container_name: react
     ports:
       - "3000:80"
