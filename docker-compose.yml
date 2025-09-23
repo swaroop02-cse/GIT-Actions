@@ -3,10 +3,10 @@ services:
     image: mysql:8
     container_name: mysqldb
     environment:
-      MYSQL_ROOT_PASSWORD: swaroop@143
+      MYSQL_ROOT_PASSWORD: "swaroop@143"
       MYSQL_DATABASE: SDPDP-beta
     ports:
-      - "3307:3306"
+      - "3307:3306"   # External:Internal
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -15,22 +15,28 @@ services:
   backend:
     image: swaroop158/sdp35-backend:latest
     container_name: springboot
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/SDPDP-beta"
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "swaroop@143"
     ports:
-      - "8887:7888"
+      - "8887:7888"   # External:Internal
     depends_on:
       - mysqldb
-    restart: on-failure
+    restart: always
     networks:
       - springboot-mysql-net
 
   frontend:
     image: swaroop158/sdp35-frontend:latest
     container_name: react
+    environment:
+      REACT_APP_BACKEND_URL: "http://backend:7888"
     ports:
       - "3000:80"
     depends_on:
       - backend
-    restart: on-failure
+    restart: always
     networks:
       - springboot-mysql-net
 
